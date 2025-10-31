@@ -17,29 +17,29 @@ const BookEvent = ({ eventId, slug }: { eventId: string, slug: string;}) => {
             setSubmitted(true);
             posthog.capture('event_booked', { eventId, slug, email })
         } else {
-            console.error('Booking creation failed')
-            posthog.captureException('Booking creation failed')
+            console.error('Falha na criação da reserva')
+            posthog.captureException('Falha na criação da reserva')
         }
     }
 
     return (
         <div id="book-event">
             {submitted ? (
-                <p className="text-sm">Thank you for signing up!</p>
+                <p className="text-sm">Obrigado por se inscrever!</p>
             ): (
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="email">Email Address</label>
+                        <label htmlFor="email">Endereço de E-mail</label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             id="email"
-                            placeholder="Enter your email address"
+                            placeholder="Digite seu endereço de e-mail"
                         />
                     </div>
 
-                    <button type="submit" className="button-submit">Submit</button>
+                    <button type="submit" className="button-submit">Enviar</button>
                 </form>
             )}
         </div>

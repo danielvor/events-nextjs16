@@ -50,7 +50,7 @@ const EventDetails = async ({ params }: { params: Promise<string> }) => {
             if (request.status === 404) {
                 return notFound();
             }
-            throw new Error(`Failed to fetch event: ${request.statusText}`);
+            throw new Error(`Falha ao buscar evento: ${request.statusText}`);
         }
 
         const response = await request.json();
@@ -60,7 +60,7 @@ const EventDetails = async ({ params }: { params: Promise<string> }) => {
             return notFound();
         }
     } catch (error) {
-        console.error('Error fetching event:', error);
+        console.error('Erro ao buscar evento:', error);
         return notFound();
     }
 
@@ -75,50 +75,50 @@ const EventDetails = async ({ params }: { params: Promise<string> }) => {
     return (
         <section id="event">
             <div className="header">
-                <h1>Event Description</h1>
+                <h1>Descrição do Evento</h1>
                 <p>{description}</p>
             </div>
 
             <div className="details">
-                {/*    Left Side - Event Content */}
+                {/*    Lado Esquerdo - Conteúdo do Evento */}
                 <div className="content">
-                    <Image src={image} alt="Event Banner" width={800} height={800} className="banner" />
+                    <Image src={image} alt="Banner do Evento" width={800} height={800} className="banner" />
 
                     <section className="flex-col-gap-2">
-                        <h2>Overview</h2>
+                        <h2>Visão Geral</h2>
                         <p>{overview}</p>
                     </section>
 
                     <section className="flex-col-gap-2">
-                        <h2>Event Details</h2>
+                        <h2>Detalhes do Evento</h2>
 
-                        <EventDetailItem icon="/icons/calendar.svg" alt="calendar" label={date} />
-                        <EventDetailItem icon="/icons/clock.svg" alt="clock" label={time} />
-                        <EventDetailItem icon="/icons/pin.svg" alt="pin" label={location} />
-                        <EventDetailItem icon="/icons/mode.svg" alt="mode" label={mode} />
-                        <EventDetailItem icon="/icons/audience.svg" alt="audience" label={audience} />
+                        <EventDetailItem icon="/icons/calendar.svg" alt="calendário" label={date} />
+                        <EventDetailItem icon="/icons/clock.svg" alt="relógio" label={time} />
+                        <EventDetailItem icon="/icons/pin.svg" alt="localização" label={location} />
+                        <EventDetailItem icon="/icons/mode.svg" alt="modalidade" label={mode} />
+                        <EventDetailItem icon="/icons/audience.svg" alt="público" label={audience} />
                     </section>
 
                     <EventAgenda agendaItems={agenda} />
 
                     <section className="flex-col-gap-2">
-                        <h2>About the Organizer</h2>
+                        <h2>Sobre o Organizador</h2>
                         <p>{organizer}</p>
                     </section>
 
                     <EventTags tags={tags} />
                 </div>
 
-                {/*    Right Side - Booking Form */}
+                {/*    Lado Direito - Formulário de Reserva */}
                 <aside className="booking">
                     <div className="signup-card">
-                        <h2>Book Your Spot</h2>
+                        <h2>Reserve Sua Vaga</h2>
                         {bookings > 0 ? (
                             <p className="text-sm">
-                                Join {bookings} people who have already booked their spot!
+                                Junte-se a {bookings} pessoas que já reservaram sua vaga!
                             </p>
                         ): (
-                            <p className="text-sm">Be the first to book your spot!</p>
+                            <p className="text-sm">Seja o primeiro a reservar sua vaga!</p>
                         )}
 
                         <BookEvent eventId={event._id} slug={event.slug} />
@@ -127,7 +127,7 @@ const EventDetails = async ({ params }: { params: Promise<string> }) => {
             </div>
 
             <div className="flex w-full flex-col gap-4 pt-20">
-                <h2>Similar Events</h2>
+                <h2>Eventos Similares</h2>
                 <div className="events">
                     {similarEvents.length > 0 && similarEvents.map((similarEvent: IEvent) => (
                         <EventCard key={similarEvent.title} {...similarEvent} />
